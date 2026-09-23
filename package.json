@@ -1,13 +1,13 @@
 {
   "name": "@nekosuneprojects/vrnotications",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/NekoSuneProjects/vrnotications"
+    "url": "https://github.com/NekoSuneProjectsNPM/vrnotications"
   },
   "keywords": [
     "steamvr",
