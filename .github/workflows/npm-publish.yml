@@ -1,8 +1,24 @@
-name: Legacy npm publishing (disabled)
+name: Publish VR Notifications to npmjs.org
 on:
+  push:
+    branches: [RELEASE]
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
-  notice:
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Publishing is managed by .github/workflows/release.yml on RELEASE and BETA. This legacy workflow is intentionally disabled to prevent duplicate npm publish attempts."
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: https://registry.npmjs.org/
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm audit --omit=dev --audit-level=moderate
+      - name: Publish package to npmjs.org
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
