@@ -3,7 +3,7 @@
   "version": "1.2.4",
   "main": "index.js",
   "scripts": {
-    "test": "node --test test/*.test.js"
+    "test": "node --check index.js && node --check modules/windowsNotifications.js && node --check modules/xsOverlay.js && node --check modules/ovrToolkit.js"
   },
   "repository": {
     "type": "git",
