@@ -1,6 +1,6 @@
 {
   "name": "@nekosuneprojects/vrnotications",
-  "version": "1.0.4",
+  "version": "1.2.4",
   "main": "index.js",
   "scripts": {
     "test": "node --test"
