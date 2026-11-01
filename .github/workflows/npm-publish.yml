@@ -1,83 +1,8 @@
-name: Node.js Package NPMJS
-
+name: Legacy npm publishing (disabled)
 on:
-  push:
-    branches:
-      - main
-      - RELEASE
-      - BETA
-
-permissions:
-  contents: write
-  issues: write
-  pull-requests: write
-  packages: write
-
+  workflow_dispatch:
 jobs:
-  release:
+  notice:
     runs-on: ubuntu-latest
     steps:
-      # Checkout project repository
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      # Setup Node.js environment
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org/'
-
-      # Configure Git
-      - name: Configure Git
-        run: |
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "GitHub Actions"
-
-      # Read current package version
-      - name: Read version from package.json
-        id: read_version
-        run: |
-          VERSION=$(node -p "require('./package.json').version")
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-
-      # Publish version to npm.
-      # Tolerate ONLY a genuine "already published" conflict (re-runs of the same
-      # version). Any other failure — e.g. a 404, which means the token can't
-      # publish under the @nekosuneprojects scope — fails the job loudly.
-      - name: Publish to npm
-        run: |
-          set +e
-          out=$(npm publish --access public 2>&1)
-          status=$?
-          echo "$out"
-          if [ $status -ne 0 ]; then
-            if echo "$out" | grep -qiE "cannot publish over|previously published|EPUBLISHCONFLICT|already exists"; then
-              echo "::warning::Version already published to npm — skipping."
-              exit 0
-            fi
-            echo "::error::npm publish failed. If this is a 404 on a scoped package, the NPM_TOKEN secret is missing/invalid or your account cannot publish under the @nekosuneprojects scope (create the npm org or use a scope you own)."
-            exit $status
-          fi
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
-
-      # Read the changelog section for this version (CHANGELOG.md is maintained
-      # by hand, so we only READ it — no `operation: release`, which would fail
-      # because the version section already exists).
-      - id: get_changelog
-        name: Get version changelog
-        uses: superfaceai/release-changelog-action@v1
-        with:
-          path-to-changelog: CHANGELOG.md
-          version: ${{ env.VERSION }}
-          operation: read
-
-      # Update GitHub release
-      - name: Create or update GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: v${{ env.VERSION }}
-          body: ${{ steps.get_changelog.outputs.changelog }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo "Publishing is managed by .github/workflows/release.yml on RELEASE and BETA. This legacy workflow is intentionally disabled to prevent duplicate npm publish attempts."
