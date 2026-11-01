@@ -3,7 +3,7 @@
   "version": "1.0.4",
   "main": "index.js",
   "scripts": {
-    "test": "node --check index.js"
+    "test": "node --test"
   },
   "repository": {
     "type": "git",
