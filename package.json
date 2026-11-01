@@ -1,13 +1,13 @@
 {
   "name": "@nekosuneprojects/vrnotications",
-  "version": "1.0.0",
+  "version": "1.2.4",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/NekoSuneProjects/vrnotications"
+    "url": "https://github.com/NekoSuneProjectsNPM/vrnotications"
   },
   "keywords": [
     "steamvr",
@@ -21,9 +21,9 @@
   "license": "MIT",
   "description": "Notications for VR like SteamVR, XSOverlay, OVRToolkit, VRCX and much more come.",
   "dependencies": {
-    "axios": "^1.7.7",
+    "axios": "^1.20.0",
     "net": "^1.0.2",
-    "node-notifier": "^10.0.1",
+    "node-notifier": "^11.0.0",
     "ws": "^8.18.0"
   }
 }
